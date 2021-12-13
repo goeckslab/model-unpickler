@@ -10,14 +10,14 @@ WL_FILE = str(Path(__file__).parent.joinpath(
     'pk_whitelist.json').absolute())
 
 
-class _SafePickler(pickle.Unpickler, object):
+class SafeUnpickler(pickle.Unpickler, object):
     """
     Used to safely deserialize scikit-learn model objects
     Usage:
-        eg.: _SafePickler.load(pickled_file_object)
+        eg.: SafeUnpickler.load(pickled_file_object)
     """
     def __init__(self, file, torch_only=False):
-        super(_SafePickler, self).__init__(file)
+        super(SafeUnpickler, self).__init__(file)
         # load global white list
         with open(WL_FILE, 'r') as f:
             pk_whitelist = json.load(f)
@@ -82,6 +82,6 @@ class _SafePickler(pickle.Unpickler, object):
 
 
 def safe_load_model(file):
-    """Load pickled object with `_SafePicker`
+    """Load pickled object with `SafeUnpickler`
     """
-    return _SafePickler(file).load()
+    return SafeUnpickler(file).load()

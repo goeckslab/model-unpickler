@@ -1,5 +1,5 @@
 from .safe_pickler import (
-    _SafePickler,
+    SafeUnpickler,
     safe_load_model,
 )
 
