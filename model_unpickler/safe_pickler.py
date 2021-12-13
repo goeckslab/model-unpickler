@@ -16,8 +16,8 @@ class SafeUnpickler(pickle.Unpickler, object):
     Usage:
         eg.: SafeUnpickler.load(pickled_file_object)
     """
-    def __init__(self, file, torch_only=False):
-        super(SafeUnpickler, self).__init__(file)
+    def __init__(self, file, **kwargs):
+        super(SafeUnpickler, self).__init__(file, **kwargs)
         # load global white list
         with open(WL_FILE, 'r') as f:
             pk_whitelist = json.load(f)
