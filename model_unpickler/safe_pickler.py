@@ -1,9 +1,12 @@
 import _compat_pickle
 import json
+import logging
 import pickle
 import sys
 from pathlib import Path
 
+
+log = logging.getLogger(__name__)
 
 # handle pickle white list file
 WL_FILE = str(Path(__file__).parent.joinpath(
@@ -78,6 +81,7 @@ class SafeUnpickler(pickle.Unpickler, object):
         new_global = getattr(sys.modules[module], name)
 
         assert new_global.__module__ == module
+        log.debug(f"SafeUnpickler loaded global: `{fullname}`.")
         return new_global
 
 
