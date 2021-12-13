@@ -8,3 +8,27 @@ _This libary provides a secure tool to load pickled models by overriding the `fi
 
 
 _This libary also provides utils to quickly update the global whilelist in case that the corresponding machine learning libraries are updated._
+
+### Useage
+
+For scikit-learn or other galaxy-ml supported models
+```
+from model_unpickler import safe_load_model
+
+safe_load_model('path_to_model')
+```
+
+For torch models
+```
+import pickle
+import torch
+from model_unpickler import SafeUnpickler
+
+setattr(pickle, 'Unpickler', SafeUnpickler)
+torch.load('path_to_model')
+```
+
+To generate a new whitelist
+```
+python scripts/gen_whitelist.py
+```
