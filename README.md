@@ -15,17 +15,20 @@ For scikit-learn or other galaxy-ml supported models
 ```
 from model_unpickler import safe_load_model
 
+
 safe_load_model('path_to_model')
 ```
 
 For torch models
 ```
 import pickle
-import torch
 from model_unpickler import SafeUnpickler
 
+
+# Override pickle Unpickler with SafeUnpickler before calling `torch.load`
 setattr(pickle, 'Unpickler', SafeUnpickler)
-torch.load('path_to_model')
+
+# torch.load('path_to_model')
 ```
 
 To generate a new whitelist
