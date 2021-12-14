@@ -22,9 +22,9 @@ def gen_pickle_whitelist():
         'SKOPT_NAMES': [],
         'NUMPY_NAMES': [],
         'KERAS_NAMES': [],
-        'GENERAL_NAMES': [],
         'TORCH_NAMES': [],
-        'GALAXY-ML_NAMES': []
+        'GALAXY-ML_NAMES': [],
+        'GENERAL_NAMES': []
     }
 
     sk_submodule_excludes = (
@@ -35,6 +35,7 @@ def gen_pickle_whitelist():
                       - set(sk_submodule_excludes)):
         rval['SK_NAMES'].extend(
             find_members('sklearn.' + submodule))
+    rval['SK_NAMES'] = sorted(rval['SK_NAMES'])
 
     rval['SKR_NAMES'].extend(find_members('skrebate'))
 
