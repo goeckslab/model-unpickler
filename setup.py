@@ -43,7 +43,5 @@ setup(name='model-unpickler',
           'Operating System :: Unix',
           'Operating System :: MacOS',
           'Topic :: Scientific/Engineering',
-          'Topic :: Scientific/Engineering :: Machine Learning',
-          'Topic :: Scientific/Engineering :: Deep Learning',
           'Topic :: Scientific/Engineering :: Artificial Intelligence',
       ])
