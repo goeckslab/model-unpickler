@@ -15,8 +15,8 @@ For scikit-learn or other galaxy-ml supported models
 ```
 from model_unpickler import safe_load_model
 
-
-safe_load_model('path_to_model')
+with open('path_to_model', 'rb') as f:
+    safe_load_model(f)
 ```
 
 For torch models
@@ -34,4 +34,10 @@ setattr(pickle, 'Unpickler', SafeUnpickler)
 To generate a new whitelist
 ```
 python scripts/gen_whitelist.py
+```
+
+To use costom whitelist file, set environment variable `PK_WHITELIST_PATH`
+```
+# linux
+export PK_WHITELIST_PATH='path_to_new_whitelist_file'
 ```

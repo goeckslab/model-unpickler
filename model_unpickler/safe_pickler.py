@@ -2,6 +2,7 @@ import _compat_pickle
 import json
 import logging
 import pickle
+import os
 import sys
 from pathlib import Path
 
@@ -9,8 +10,9 @@ from pathlib import Path
 log = logging.getLogger(__name__)
 
 # handle pickle white list file
-WL_FILE = str(Path(__file__).parent.joinpath(
-    'pk_whitelist.json').absolute())
+WL_FILE = os.environ.get('PK_WHITELIST_PATH') or \
+    str(Path(__file__).parent.joinpath(
+        'pk_whitelist.json').absolute())
 
 
 class SafeUnpickler(pickle.Unpickler, object):
