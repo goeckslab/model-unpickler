@@ -6,6 +6,3 @@ from .safe_pickler import (
 from .gen_whitelist import (
     gen_pickle_whitelist,
 )
-
-
-__version__ = 0.1

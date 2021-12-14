@@ -1,24 +1,13 @@
-import subprocess
-
-import model_unpickler
-
-try:
-    import numpy as np
-except ImportError:
-    subprocess.run("pip install numpy>=1.16.2",
-                   shell=True, check=True)
-    import numpy as np
-
 from os.path import realpath, dirname, join
 from setuptools import find_packages
 from distutils.core import setup
 
 
-VERSION = model_unpickler.__version__
+VERSION = '0.1'
 PROJECT_ROOT = dirname(realpath(__file__))
 
-with open(join(PROJECT_ROOT, 'requirements.txt'), 'r') as f:
-    install_reqs = f.read().splitlines()
+with open(join(PROJECT_ROOT, 'requirements.txt'), 'r', encoding="utf-8") as f:
+    install_reqs = [line.strip() for line in f if line]
 
 long_description = """
 
@@ -40,11 +29,9 @@ setup(name='model-unpickler',
       url='https://github.com/goeckslab/model-unpickler/',
       packages=find_packages(exclude=['docs', 'tests*', 'test-data*']),
       package_data={
-          '': ['README.md',
-               'requirements.txt']},
+          '': ['README.md', 'requirements.txt']},
       include_package_data=True,
       install_requires=install_reqs,
-      extras_require={'docs': ['mkdocs']},
       platforms='any',
       classifiers=[
           'Programming Language :: Python :: 3',
