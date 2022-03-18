@@ -6,6 +6,11 @@ import os
 import sys
 from pathlib import Path
 
+try:
+    import torch
+except Exception:
+    pass
+
 
 log = logging.getLogger(__name__)
 
@@ -74,7 +79,8 @@ class SafeUnpickler(pickle.Unpickler, object):
 
         fullname = module + '.' + name
 
-        if fullname not in self.whitelist:
+        if fullname not in self.whitelist  \
+                and (module=='torch' and name not in torch.__all__):
             # raise pickle.UnpicklingError
             raise pickle.UnpicklingError("Global '%s' is forbidden"
                                          % fullname)
