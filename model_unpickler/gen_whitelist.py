@@ -4,6 +4,7 @@ import pkgutil
 import sys
 from pathlib import Path
 
+import torch
 try:
     import sklearn
 except:
@@ -24,7 +25,7 @@ def gen_pickle_whitelist():
         'KERAS_NAMES': [],
         'TORCH_NAMES': [],
         'GALAXY-ML_NAMES': [],
-        'GENERAL_NAMES': []
+        'GENERAL_NAMES': [],
     }
 
     sk_submodule_excludes = (
@@ -66,12 +67,13 @@ def gen_pickle_whitelist():
         "numpy.mean",
         "numpy.ndarray",
         "numpy.random.__RandomState_ctor",
-        "numpy.random._pickle.__randomstate_ctor"])
+        "numpy.random._pickle.__randomstate_ctor",
+    ])
 
     rval['KERAS_NAMES'].extend([
         "keras.engine.sequential.Sequential",
         "keras.engine.sequential.Functional",
-        "keras.engine.sequential.Model"
+        "keras.engine.sequential.Model",
     ])
 
     rval['GENERAL_NAMES'].extend([
@@ -79,13 +81,13 @@ def gen_pickle_whitelist():
         "builtins.object",
         "builtins.bytearray",
         "collections.OrderedDict",
-        "copyreg._reconstructor"
+        "copyreg._reconstructor",
     ])
 
-    rval['TORCH_NAMES'].extend([
-        "torch._utils._rebuild_tensor_v2",
-        "torch.FloatStorage"
-    ])
+    rval['TORCH_NAMES'].extend(
+        ["torch._utils._rebuild_tensor_v2"] +
+        ["touch" + gbl for gbl in torch.__all__ if gbl.endswith(('Storage', 'Tensor'))]
+    )
 
     for gx_ml_submodules in ('keras_galaxy_models', 'feature_selectors',
                              'preprocessors', 'iraps_classifier',
